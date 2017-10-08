@@ -2,10 +2,14 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.2.
 
+It uses Docker, Angular4 and .NetCore
+
 ## Publish
 
 Run `docker-compose build` and `docker-compose up`.
+
 Server: `localhost:5000/api`
+
 Client: `localhost`
 
 ## Development server

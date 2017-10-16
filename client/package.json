@@ -21,15 +21,17 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
+    "angularfire2": "5.0.0-rc.3",
     "bootstrap": "3.3.7",
     "chart.js": "2.7.0",
     "core-js": "^2.4.1",
+    "firebase": "4.5.1",
     "font-awesome": "4.6.3",
+    "jquery": "3.2.1",
     "metismenu": "2.7.0",
     "ng2-charts": "1.6.0",
     "rxjs": "^5.4.2",
-    "zone.js": "^0.8.14",
-    "jquery":"3.2.1"
+    "zone.js": "^0.8.14"
   },
   "devDependencies": {
     "@angular/cli": "1.4.2",

@@ -1,4 +1,5 @@
 FROM microsoft/aspnetcore-build:2.0 AS build-env
+MAINTAINER klewgenius
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -11,6 +12,7 @@ RUN dotnet publish -c Release -o out
 
 # Build runtime image
 FROM microsoft/aspnetcore:2.0
+EXPOSE 80/tcp
 WORKDIR /app
 COPY --from=build-env /app/out .
 ENTRYPOINT ["dotnet", "server.dll"]

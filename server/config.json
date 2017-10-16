@@ -1,0 +1,6 @@
+{
+    "ConnectionStrings": {
+        "DataAccessPostgreSqlProvider":
+        "User ID=postgres;Password=password;Host=localhost;Port=5432;Database=moneytracker;Integrated Security=true;Pooling=true;"
+    }
+  }

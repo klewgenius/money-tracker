@@ -13,6 +13,14 @@ namespace server.DbModels
 
         public long Amount { get; set; }
 
-        public DateTime Expiration { get; set; }
+        public DateTime StartingDueDate { get; set; }
+
+        // Cash / Debit Card
+        public string PaidForm { get; set; }
+
+        // Seguros / Gastos publicos / Combustibles
+        public string Category { get; set; }
+
+        public bool Recurrence { get; set; }
     }
 }

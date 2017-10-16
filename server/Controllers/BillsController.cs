@@ -9,39 +9,29 @@ namespace server
     [Route("api/[controller]")]
     public class BillsController : Controller
     {
-        private readonly ApiContext _context;
-
-        public BillsController(ApiContext context)
+        private readonly DomainModelPostgreSqlContext _context;
+        
+        public BillsController(DomainModelPostgreSqlContext context)
         {
             _context = context;
-
-            if (_context.Bills.Count() == 0)
-            {
-                _context.Bills.Add(new Bill
-                {
-                    Id = 1,
-                    Amount = 2500,
-                    Expiration = DateTime.Now,
-                    Name = "Oca Card"
-                });
-
-                _context.Bills.Add(new Bill
-                {
-                    Id = 2,
-                    Amount = 2300,
-                    Expiration = DateTime.Now,
-                    Name = "ANTEL"
-                });
-
-
-                _context.SaveChanges();
-            }
         }
 
         [HttpGet]
         public IEnumerable<Bill> GetAll()
         {
-            return _context.Bills.ToList();
+            try
+            {
+                return _context.Bills.ToList();
+            }
+            catch (Exception ex)
+            {
+                var result = new List<Bill>();
+                result.Add(new Bill()
+                {
+                    Name = ex.Message
+                });
+                return result;
+            }
         }
 
         [HttpGet("{id}", Name = "GetTodo")]

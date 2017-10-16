@@ -1,0 +1,186 @@
+{
+  "catalogs":
+  [
+    {
+      "title": "NOVIEMBRE 2017",
+      "ingresos": 67673,
+      "gastos": [
+        {
+          "name": "Gastos iniciales",
+          "amount": 800,
+          "dueDate": "4",
+          "payed": false,
+          "fixed": false
+        }
+      ]
+    },
+    {
+      "title": "OCTUBRE 2017",
+      "ingresos": 67673,
+      "gastos": [
+        {
+          "name": "Alquiler",
+          "amount": 16421,
+          "dueDate": "10",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "Colegio Juli",
+          "amount": 8284,
+          "dueDate": "6",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "Garage",
+          "amount": 3100,
+          "dueDate": "10",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "Gastos Comunes",
+          "amount": 0,
+          "dueDate": "10",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "Patente",
+          "amount": 0,
+          "dueDate": "10",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "ADSL",
+          "amount": 1160,
+          "dueDate": "10",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "Montecable",
+          "amount": 1249,
+          "dueDate": "10",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "OCA Andres",
+          "amount": 3065,
+          "dueDate": "20",
+          "payed": false,
+          "fixed": true
+        },
+        {
+          "name": "OCA Amor",
+          "amount": 1228,
+          "dueDate": "20",
+          "payed": true,
+          "fixed": true
+        },
+        {
+          "name": "UTE",
+          "amount": 2300,
+          "dueDate": "28",
+          "payed": false,
+          "fixed": true
+        },
+        {
+          "name": "Comida",
+          "amount": 6000,
+          "dueDate": "4",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "Gastos iniciales",
+          "amount": 1000,
+          "dueDate": "4",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "Campera y otros",
+          "amount": 3600,
+          "dueDate": "4",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "MAM dia 14",
+          "amount": 1070,
+          "dueDate": "14",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "MAM dia 4",
+          "amount": 974,
+          "dueDate": "4",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "FRIGO Varios",
+          "amount": 1200,
+          "dueDate": "4",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "Nafta",
+          "amount": 1000,
+          "dueDate": "4",
+          "payed": true,
+          "fixed": false
+        },
+        {
+          "name": "Alquiler Sum",
+          "amount": 500,
+          "dueDate": "4",
+          "payed": false,
+          "fixed": false
+        },
+        {
+          "name": "Animación Juli",
+          "amount": 500,
+          "dueDate": "4",
+          "payed": false,
+          "fixed": false
+        },
+        {
+          "name": "Nafta",
+          "amount": 1000,
+          "dueDate": "15",
+          "payed": false,
+          "fixed": false
+        },
+        {
+          "name": "MAM dia 21",
+          "amount": 1000,
+          "dueDate": "21",
+          "payed": false,
+          "fixed": false
+        },
+        {
+          "name": "MAM dia 28",
+          "amount": 1000,
+          "dueDate": "21",
+          "payed": false,
+          "fixed": false
+        },
+        {
+          "name": "Gastos iniciales",
+          "amount": 800,
+          "dueDate": "4",
+          "payed": false,
+          "fixed": false
+        }
+      ]
+    }
+  ]
+}
+

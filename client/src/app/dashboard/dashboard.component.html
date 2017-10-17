@@ -1,0 +1,135 @@
+<div class="sub-header col-sm-12 page-title-div">
+  <div class="col-sm-10">
+    <h3>{{ title }}</h3>
+  </div>
+</div>
+<div class="col-sm-12 main-info-container">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4">
+
+          <div class="card card-block">
+            <h2 class="m-b-0 v-align-middle text-overflow green-number">
+              <span>{{ salary }}</span>
+            </h2>
+            <div class="small text-overflow text-muted">
+              Ingresos
+            </div>
+            <div class="small text-overflow">
+              Updated:&nbsp;
+              <span>05:35 AM</span>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <h2 class="m-b-0 v-align-middle text-overflow green-number">
+              <span>{{ salary - amount }}</span>
+            </h2>
+            <div class="small text-overflow text-muted">
+              Estado Actual
+            </div>
+            <div class="small text-overflow">
+              Updated:&nbsp;
+              <span>05:35 AM</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <h2 class="m-b-0 v-align-middle text-overflow green-number">
+              <span>{{ salary - estimation }}</span>
+            </h2>
+            <div class="small text-overflow text-muted">
+              Estado Estimado
+            </div>
+            <div class="small text-overflow">
+              Updated:&nbsp;
+              <span>05:35 AM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card card-block">
+            <h2 class="m-b-0 v-align-middle text-overflow red-number">
+              <span>{{ amount }}</span>
+            </h2>
+            <div class="small text-overflow text-muted">
+              Gasto a la fecha
+            </div>
+            <div class="small text-overflow">
+              Updated:&nbsp;
+              <span>05:35 AM</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <h2 class="m-b-0 v-align-middle text-overflow red-number">
+              <span>{{ pendingAmount }}</span>
+            </h2>
+            <div class="small text-overflow text-muted">
+              Gasto pendiente
+            </div>
+            <div class="small text-overflow">
+              Updated:&nbsp;
+              <span>05:35 AM</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card card-block">
+            <h2 class="m-b-0 v-align-middle text-overflow red-number">
+              <span>{{ estimation }}</span>
+            </h2>
+            <div class="small text-overflow text-muted">
+              Gasto total estimado
+            </div>
+            <div class="small text-overflow">
+              Updated:&nbsp;
+              <span>05:35 AM</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="cards-container">
+  <div class="col-md-6 col-sm-12">
+    <div class="col-sm-12 page-title-div">
+      <h3>REALIZADOS</h3>
+    </div>
+    <div class="col-sm-12 separator">
+      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | payed)">
+        <h2 class="m-b-0 v-align-middle text-overflow">
+          <span>{{ item.amount }}</span>
+        </h2>
+        <div class="small text-overflow text-muted">
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-sm-12">
+    <div class="col-sm-12 page-title-div">
+      <h3>PENDIENTES</h3>
+    </div>
+    <div class="col-sm-12 separator">
+      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed)">
+        <h2 class="m-b-0 v-align-middle text-overflow">
+          <span>{{ item.amount }}</span>
+        </h2>
+        <div class="small text-overflow text-muted">
+          {{ item.name }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

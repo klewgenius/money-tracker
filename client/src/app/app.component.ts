@@ -45,7 +45,7 @@ export class AppComponent implements AfterViewInit {
   }
 
   setTarget(id) {
-    this.db.ChangeSelected(id);
+    this.db.changeCatalog(id);
   }
 
   logout() {

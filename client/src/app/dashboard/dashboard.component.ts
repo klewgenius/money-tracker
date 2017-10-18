@@ -18,7 +18,12 @@ export class DashboardComponent implements OnInit {
   title = '';
 
   constructor(public fbSvc: FirebaseService) {
-    this.fbSvc.getUpdatedCatalog().subscribe(latest => {
+    this.fbSvc.getUpdatedCatalog()
+    .subscribe(latest => {
+
+      console.log('DashboardComponent - getUpdatedCatalog fired! ');
+      console.log(latest);
+
       (this.bills = latest.bills),
         (this.amount = latest.amount),
         (this.pendingAmount = latest.pendingAmount),

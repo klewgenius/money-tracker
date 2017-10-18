@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FirebaseService } from '../services/firebase.service';
-import { BillService } from '../services/bill.service';
 import { Observable } from 'rxjs/Observable';
 
 @Component({
@@ -19,8 +18,7 @@ export class DashboardComponent implements OnInit {
   title = '';
 
   constructor(public fbSvc: FirebaseService) {
-
-    fbSvc.latestResults().subscribe(latest => {
+    this.fbSvc.getUpdatedCatalog().subscribe(latest => {
       (this.bills = latest.bills),
         (this.amount = latest.amount),
         (this.pendingAmount = latest.pendingAmount),

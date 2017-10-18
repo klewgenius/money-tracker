@@ -6,28 +6,28 @@ import { Subscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class FirebaseService implements OnDestroy {
-  subscription: Subscription;
+  public catalogDetails = new Subject<any>();
+  public catalogs = new Subject<any>();
 
-  public bills: any = [];
-  public salary = 0;
-  public title = '';
-  public amount = 0;
-  public pendingAmount = 0;
-  public estimation = 0;
-  public obResult = new Subject<any>();
+  private subscription: Subscription;
+  private bills: any = [];
+  private salary = 0;
+  private title = '';
+  private amount = 0;
+  private pendingAmount = 0;
+  private estimation = 0;
+  private userId = '0';
 
-  constructor(public db: AngularFireDatabase) {
-    this.attachToChanges(0);
-    this.buildLatest();
-  }
+  constructor(public db: AngularFireDatabase) {}
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.obResult.unsubscribe();
+    this.catalogDetails.unsubscribe();
     this.subscription.unsubscribe();
+    this.catalogs.unsubscribe();
   }
 
-  buildLatest() {
-    this.obResult.next({
+  updateCatalog() {
+    this.catalogDetails.next({
       bills: this.bills,
       salary: this.salary,
       amount: this.amount,
@@ -37,9 +37,8 @@ export class FirebaseService implements OnDestroy {
     });
   }
   whenCatalogChange(id) {
-    return this.db.object('catalogs/' + id).valueChanges();
+    return this.db.object(this.userId + '/catalogs/' + id).valueChanges();
   }
-
 
   attachToChanges(id) {
     if (this.subscription) {
@@ -64,18 +63,41 @@ export class FirebaseService implements OnDestroy {
 
     this.estimation = this.bills.reduce((acc, bill) => acc + bill.amount, 0);
 
-    this.buildLatest();
+    this.updateCatalog();
   };
 
   ChangeSelected(id: string) {
     this.attachToChanges(id);
   }
 
-  latestResults(): Observable<any> {
-    return this.obResult.asObservable();
+  getUpdatedCatalog(): Observable<any> {
+    return this.catalogDetails.asObservable();
   }
 
-  getCatalogs(): Observable<any[]> {
-    return this.db.object('catalogs').valueChanges();
+  connect(userId: string) {
+      this.userExist(userId).subscribe(exist => {
+        const userIdOrDefault = exist ? userId : '0';
+        this.init(userIdOrDefault);
+      });
+  }
+
+  disconnect() {
+    this.catalogs.next([]);
+  }
+
+  userExist(userId): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.db
+        .object(userId)
+        .valueChanges()
+        .subscribe(result => observer.next(result != null));
+    });
+  }
+
+  init(userId) {
+    this.userId = userId;
+    this.attachToChanges(0);
+    this.db.object(userId + '/catalogs').valueChanges()
+    .subscribe(catalogs => this.catalogs.next(catalogs));
   }
 }

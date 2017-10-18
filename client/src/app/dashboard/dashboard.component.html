@@ -102,12 +102,13 @@
   </ul>
 </div>
 <div class="cards-container">
+
   <div class="col-md-6 col-sm-12">
     <div class="col-sm-12 page-title-div">
-      <h3>REALIZADOS</h3>
+      <h3>PENDIENTES</h3>
     </div>
     <div class="col-sm-12 separator">
-      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | payed)">
+      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed)">
         <h2 class="m-b-0 v-align-middle text-overflow">
           <span>{{ item.amount }}</span>
         </h2>
@@ -119,10 +120,10 @@
   </div>
   <div class="col-md-6 col-sm-12">
     <div class="col-sm-12 page-title-div">
-      <h3>PENDIENTES</h3>
+      <h3>REALIZADOS</h3>
     </div>
     <div class="col-sm-12 separator">
-      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed)">
+      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | payed)">
         <h2 class="m-b-0 v-align-middle text-overflow">
           <span>{{ item.amount }}</span>
         </h2>

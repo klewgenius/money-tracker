@@ -1,6 +1,8 @@
 import { Component, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { FirebaseService } from './services/firebase.service';
 import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
+import { AuthService } from './providers/auth.service';
 
 declare let $: any;
 
@@ -11,11 +13,30 @@ declare let $: any;
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements AfterViewInit {
+  catalogs: any[];
 
-  catalogs: Observable<any[]>;
+  constructor(
+    public db: FirebaseService,
+    private authService: AuthService,
+    private router: Router
+  ) {
 
-  constructor(public db: FirebaseService) {
-    this.catalogs = this.db.getCatalogs();
+    this.db.catalogs.subscribe(cat => this.catalogs = cat);
+
+    this.authService.af.auth.onAuthStateChanged(user => {
+      if (user == null) {
+        console.log('Logged out');
+        this.db.disconnect();
+        this.router.navigate(['login']);
+      } else {
+
+        this.db.connect(user.uid);
+
+        console.log('Logged in');
+        console.log(user.uid);
+        this.router.navigate(['']);
+      }
+    });
   }
 
   ngAfterViewInit() {
@@ -24,6 +45,12 @@ export class AppComponent implements AfterViewInit {
   }
 
   setTarget(id) {
-    this.db.ChangeSelected(id);
+    this.db.changeCatalog(id);
+  }
+
+  logout() {
+    this.db.disconnect();
+    this.authService.logout();
+    this.router.navigate(['login']);
   }
 }

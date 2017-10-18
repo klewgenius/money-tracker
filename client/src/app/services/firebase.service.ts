@@ -2,32 +2,32 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Subject } from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription, ISubscription } from 'rxjs/Subscription';
 
 @Injectable()
 export class FirebaseService implements OnDestroy {
-  subscription: Subscription;
+  public catalogDetails = new Subject<any>();
+  public catalogs = new Subject<any>();
 
-  public bills: any = [];
-  public salary = 0;
-  public title = '';
-  public amount = 0;
-  public pendingAmount = 0;
-  public estimation = 0;
-  public obResult = new Subject<any>();
+  private unsubscribeEvent: Subject<any> = new Subject();
+  private bills: any = [];
+  private salary = 0;
+  private title = '';
+  private amount = 0;
+  private pendingAmount = 0;
+  private estimation = 0;
+  private userId = '0';
 
-  constructor(public db: AngularFireDatabase) {
-    this.attachToChanges(0);
-    this.buildLatest();
-  }
+  constructor(public db: AngularFireDatabase) {}
+
   ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.obResult.unsubscribe();
-    this.subscription.unsubscribe();
+    this.unsubscribeEvent.next();
+    this.unsubscribeEvent.complete();
   }
 
-  buildLatest() {
-    this.obResult.next({
+  updateCatalog() {
+    this.catalogDetails.next({
       bills: this.bills,
       salary: this.salary,
       amount: this.amount,
@@ -36,24 +36,23 @@ export class FirebaseService implements OnDestroy {
       estimation: this.estimation
     });
   }
-  whenCatalogChange(id) {
-    return this.db.object('catalogs/' + id).valueChanges();
-  }
-
 
   attachToChanges(id) {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
-    this.subscription = this.whenCatalogChange(id).subscribe(
-      this.ProcessResults
-    );
+    this.db
+      .object(this.userId + '/catalogs/' + id)
+      .valueChanges()
+      .takeUntil(this.unsubscribeEvent)
+      .subscribe(result => {
+        this.ProcessResults(result);
+        this.updateCatalog();
+      });
   }
 
-  ProcessResults = result => {
+  ProcessResults(result) {
     this.bills = result['gastos'];
     this.salary = result['ingresos'];
     this.title = result['title'];
+
     this.amount = this.bills
       .filter(bill => bill.payed)
       .reduce((acc, bill) => acc + bill.amount, 0);
@@ -63,19 +62,48 @@ export class FirebaseService implements OnDestroy {
       .reduce((acc, bill) => acc + bill.amount, 0);
 
     this.estimation = this.bills.reduce((acc, bill) => acc + bill.amount, 0);
+  }
 
-    this.buildLatest();
-  };
-
-  ChangeSelected(id: string) {
+  changeCatalog(id: string) {
+    this.unsubscribeEvent.next(); // unsubscribe
     this.attachToChanges(id);
   }
 
-  latestResults(): Observable<any> {
-    return this.obResult.asObservable();
+  getUpdatedCatalog(): Observable<any> {
+    return this.catalogDetails.asObservable();
   }
 
-  getCatalogs(): Observable<any[]> {
-    return this.db.object('catalogs').valueChanges();
+  connect(userId: string) {
+    this.userExist(userId).subscribe(exist => {
+      console.log('FirebaseService - connect() UserExist: ' + exist);
+
+      const userIdOrDefault = exist ? userId : '0';
+      this.init(userIdOrDefault);
+    });
+  }
+
+  disconnect() {
+    this.unsubscribeEvent.next();
+    this.catalogs.next([]);
+  }
+
+  userExist(userId): Observable<boolean> {
+    return new Observable<boolean>(observer => {
+      this.db
+        .object(userId)
+        .valueChanges()
+        .first()
+        .subscribe(result => observer.next(result != null));
+    });
+  }
+
+  private init(userId) {
+    this.userId = userId;
+    this.attachToChanges(0);
+    this.db
+      .object(userId + '/catalogs')
+      .valueChanges()
+      .takeUntil(this.unsubscribeEvent)
+      .subscribe(catalogs => this.catalogs.next(catalogs));
   }
 }

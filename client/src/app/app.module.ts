@@ -5,12 +5,14 @@ import { AppComponent } from './app.component';
 import { ChartsModule } from 'ng2-charts';
 import { ChartExampleComponent } from './chart-example/chart-example.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { BillService } from './services/bill.service';
 import { FirebaseService } from './services/firebase.service';
-
 import { PayedPipe, NotPayedPipe } from './pipes/payed.pipe';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './providers/auth.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 // Must export the config
 export const firebaseConfig = {
@@ -24,10 +26,8 @@ export const firebaseConfig = {
 
 
 const appRoutes: Routes = [
-  { path: '',
-    component: DashboardComponent,
-    data: { title: 'Dashboard' }
-  }
+  { path: '', component: DashboardComponent, canLoad: [AuthGuardService] },
+  { path: 'login', component: LoginComponent }
 ];
 
 @NgModule({
@@ -36,7 +36,8 @@ const appRoutes: Routes = [
     ChartExampleComponent,
     DashboardComponent,
     PayedPipe,
-    NotPayedPipe
+    NotPayedPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,7 @@ const appRoutes: Routes = [
     ),
     AngularFireModule.initializeApp(firebaseConfig)
   ],
-  providers: [BillService, AngularFireDatabase, FirebaseService],
+  providers: [AngularFireDatabase, FirebaseService, AuthService, AngularFireAuth],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

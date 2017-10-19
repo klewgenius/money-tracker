@@ -18,9 +18,7 @@ export class DashboardComponent implements OnInit {
   title = '';
 
   constructor(public fbSvc: FirebaseService) {
-    this.fbSvc.getUpdatedCatalog()
-    .subscribe(latest => {
-
+    this.fbSvc.getUpdatedCatalog().subscribe(latest => {
       console.log('DashboardComponent - getUpdatedCatalog fired! ');
       console.log(latest);
 
@@ -34,4 +32,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  pay(index) {
+    this.fbSvc.setPayed(index, true);
+  }
+
+  unPayed(index) {
+    this.fbSvc.setPayed(index, false);
+  }
 }

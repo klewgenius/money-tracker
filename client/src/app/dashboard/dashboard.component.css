@@ -106,8 +106,17 @@ element.style {
 
 
 .btn-pay{
-    color: #a0a0a0;
+    color: #60a762;
     background-color: #fff;
     margin-top: 15px;
     border-radius: 20px;
+    border: 1px solid;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.not-payed{
+    color: #d27777;
+    border: 1px solid;
 }

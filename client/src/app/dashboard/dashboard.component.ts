@@ -17,6 +17,11 @@ export class DashboardComponent implements OnInit {
   salary = 0;
   title = '';
 
+  // create new component for this.
+  bill_name: string;
+  bill_amount: number;
+  bill_dueDate: Date;
+
   constructor(public fbSvc: FirebaseService) {
     this.fbSvc.getUpdatedCatalog().subscribe(latest => {
       console.log('DashboardComponent - getUpdatedCatalog fired! ');
@@ -39,5 +44,12 @@ export class DashboardComponent implements OnInit {
 
   unPayed(index) {
     this.fbSvc.setPayed(index, false);
+  }
+
+  newBill() {
+    this.fbSvc.createBill(this.bill_name, this.bill_amount, this.bill_dueDate);
+    this.bill_name = '';
+    this.bill_amount = 0;
+    this.bill_dueDate = null;
   }
 }

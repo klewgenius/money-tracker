@@ -105,18 +105,28 @@ element.style {
 }
 
 
-.btn-pay{
-    color: #60a762;
-    background-color: #fff;
-    margin-top: 15px;
+.btn-round{
     border-radius: 20px;
     border: 1px solid;
     position: absolute;
-    top: 15px;
     right: 15px;
 }
 
+.btn-pay{
+    top: 30px;
+    color: #60a762;
+    background-color: #fff;
+}
+
 .not-payed{
+    top: 30px;
     color: #d27777;
+    border: 1px solid;
+}
+
+.btn-new{
+    border-radius:5px;
+    top: 6px;
+    color: #5c6ab1;
     border: 1px solid;
 }

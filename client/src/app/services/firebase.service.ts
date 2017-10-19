@@ -87,6 +87,24 @@ export class FirebaseService implements OnDestroy {
       );
   }
 
+  // todo: return promise with true/false
+  createBill(name, amount, dueDate) {
+
+    this.bills.push({
+      name: name,
+      amount: amount,
+      payed: false
+    });
+
+    this.db
+      .object(this.userId + '/catalogs/' + this.catalogId + '/gastos')
+      .update(this.bills)
+      .then(
+        r => console.log('createBill success!')
+      );
+
+  }
+
   connect(userId: string) {
     this.userExist(userId).subscribe(exist => {
       console.log('FirebaseService - connect() UserExist: ' + exist);

@@ -103,3 +103,11 @@ element.style {
 .card{
   border:0;
 }
+
+
+.btn-pay{
+    color: #a0a0a0;
+    background-color: #fff;
+    margin-top: 15px;
+    border-radius: 20px;
+}

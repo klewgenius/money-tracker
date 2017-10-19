@@ -108,12 +108,19 @@
       <h3>PENDIENTES</h3>
     </div>
     <div class="col-sm-12 separator">
-      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed)">
-        <h2 class="m-b-0 v-align-middle text-overflow">
-          <span>{{ item.amount }}</span>
-        </h2>
-        <div class="small text-overflow text-muted">
-          {{ item.name }}
+      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed); let i = index;">
+        <div class="col-sm-8">
+          <h2 class="m-b-0 v-align-middle text-overflow">
+            <span>{{ item.amount }}</span>
+          </h2>
+          <div class="small text-overflow text-muted">
+            {{ item.name }}
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="row">
+            <button type="button" class="btn btn-default btn-pay">PAGAR {{ item | json }}</button>
+          </div>
         </div>
       </div>
     </div>

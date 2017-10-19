@@ -16,7 +16,9 @@ export class FirebaseService implements OnDestroy {
   private amount = 0;
   private pendingAmount = 0;
   private estimation = 0;
+
   private userId = '0';
+  private catalogId = '0';
 
   constructor(public db: AngularFireDatabase) {}
 
@@ -38,6 +40,7 @@ export class FirebaseService implements OnDestroy {
   }
 
   attachToChanges(id) {
+    this.catalogId = id;
     this.db
       .object(this.userId + '/catalogs/' + id)
       .valueChanges()
@@ -71,6 +74,35 @@ export class FirebaseService implements OnDestroy {
 
   getUpdatedCatalog(): Observable<any> {
     return this.catalogDetails.asObservable();
+  }
+
+  setPayed(billId, value) {
+    this.db
+      .object(this.userId + '/catalogs/' + this.catalogId + '/gastos/' + billId)
+      .update({
+        payed: value
+      })
+      .then(
+        result => console.log(result)
+      );
+  }
+
+  // todo: return promise with true/false
+  createBill(name, amount, dueDate) {
+
+    this.bills.push({
+      name: name,
+      amount: amount,
+      payed: false
+    });
+
+    this.db
+      .object(this.userId + '/catalogs/' + this.catalogId + '/gastos')
+      .update(this.bills)
+      .then(
+        r => console.log('createBill success!')
+      );
+
   }
 
   connect(userId: string) {

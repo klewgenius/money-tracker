@@ -106,6 +106,7 @@
   <div class="col-md-6 col-sm-12">
     <div class="col-sm-12 page-title-div">
       <h3>PENDIENTES</h3>
+      <button type="button" data-target="#newCard"  data-toggle="modal" class="btn btn-default btn-round btn-new">+ NUEVO</button>
     </div>
     <div class="col-sm-12 separator">
       <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed)">
@@ -115,6 +116,7 @@
         <div class="small text-overflow text-muted">
           {{ item.name }}
         </div>
+        <button type="button" (click)="pay(item.index)" class="btn btn-default btn-round btn-pay">PAGAR</button>
       </div>
     </div>
   </div>
@@ -124,12 +126,46 @@
     </div>
     <div class="col-sm-12 separator">
       <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | payed)">
-        <h2 class="m-b-0 v-align-middle text-overflow">
-          <span>{{ item.amount }}</span>
-        </h2>
-        <div class="small text-overflow text-muted">
-          {{ item.name }}
-        </div>
+          <h2 class="m-b-0 v-align-middle text-overflow">
+            <span>{{ item.amount }}</span>
+          </h2>
+          <div class="small text-overflow text-muted">
+            {{ item.name }}
+          </div>
+          <button type="button" (click)="unPayed(item.index)" class="btn btn-default btn-round not-payed">NO PAGO</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="newCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Nuevo gasto</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name" class="form-control-label">Nombre:</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="bill_name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="amount" class="form-control-label">Monto:</label>
+            <input type="number" class="form-control" id="amount" [(ngModel)]="bill_amount" name="amount">
+          </div>
+          <div class="form-group">
+            <label for="date" class="form-control-label" >Vencimiento:</label>
+            <input type="date" class="form-control" id="date" [(ngModel)]="bill_dueDate" name="duedate">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" (click)="newBill()">Guardar</button>
       </div>
     </div>
   </div>

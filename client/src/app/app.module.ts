@@ -13,6 +13,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './providers/auth.service';
 import { AuthGuardService } from './services/auth-guard.service';
+import { FormsModule } from '@angular/forms';
 
 // Must export the config
 export const firebaseConfig = {
@@ -46,7 +47,8 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: false } // <-- debugging purposes only
     ),
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    FormsModule
   ],
   providers: [AngularFireDatabase, FirebaseService, AuthService, AngularFireAuth],
   bootstrap: [AppComponent]

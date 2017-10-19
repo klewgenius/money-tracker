@@ -6,7 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PayedPipe implements PipeTransform {
 
   transform(bills: any[]) {
-    return bills.filter(bill => bill.payed);
+    return bills
+    .map((bill, index) => {
+      bill.index = index;
+      return bill;
+    })
+    .filter(bill => bill.payed);
   }
 
 }
@@ -17,7 +22,12 @@ export class PayedPipe implements PipeTransform {
 export class NotPayedPipe implements PipeTransform {
 
   transform(bills: any[]) {
-    return bills.filter(bill => !bill.payed);
+    return bills
+    .map((bill, index) => {
+      bill.index = index;
+      return bill;
+    })
+    .filter(bill => !bill.payed);
   }
 
 }

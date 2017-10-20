@@ -113,13 +113,19 @@ element.style {
 }
 
 .btn-pay{
-    top: 30px;
+    top: 12px;
     color: #60a762;
     background-color: #fff;
 }
 
+.btn-edit{
+  top: 49px;
+  color: #a2a2a2;
+  background-color: #fff;
+}
+
 .not-payed{
-    top: 30px;
+    top: 12px;
     color: #d27777;
     border: 1px solid;
 }

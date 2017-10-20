@@ -82,27 +82,54 @@ export class FirebaseService implements OnDestroy {
       .update({
         payed: value
       })
-      .then(
-        result => console.log(result)
-      );
+      .then(result => console.log(result));
   }
 
   // todo: return promise with true/false
-  createBill(name, amount, dueDate) {
+  createOrUpdateBill(id, name, amount, dueDate): Subject<boolean> {
+    if (id > 0) {
+      this.bills[id].name = name;
+      this.bills[id].amount = amount;
+      // this.bills[id].payed = name;
+    } else {
+      this.bills.push({
+        name: name,
+        amount: amount,
+        payed: false
+      });
+    }
+    return this.updateBills();
+  }
 
-    this.bills.push({
-      name: name,
-      amount: amount,
-      payed: false
-    });
+  deleteBill(id): Subject<boolean> {
+    const observer = new Subject<boolean>();
+    if (id > 0) {
+      this.db
+        .object(this.userId + '/catalogs/' + this.catalogId + '/gastos/' + id)
+        .remove()
+        .then(
+          () => observer.next(true),
+          err => { observer.next(false); console.log(err); }
+      );
+    }
+    return observer;
+  }
+
+  updateBills(): Subject<boolean> {
+    const observer = new Subject<boolean>();
 
     this.db
       .object(this.userId + '/catalogs/' + this.catalogId + '/gastos')
-      .update(this.bills)
+      .set(this.bills)
       .then(
-        r => console.log('createBill success!')
+        result => observer.next(true),
+        rej => {
+          observer.next(false);
+          console.log(rej);
+        }
       );
 
+    return observer;
   }
 
   connect(userId: string) {

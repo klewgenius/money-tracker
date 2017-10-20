@@ -8,8 +8,6 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  catalogs: Observable<any[]>;
-
   bills: any = [];
   amount = 0;
   pendingAmount = 0;
@@ -21,6 +19,7 @@ export class DashboardComponent implements OnInit {
   bill_name: string;
   bill_amount: number;
   bill_dueDate: Date;
+  bill_id: number;
 
   constructor(public fbSvc: FirebaseService) {
     this.fbSvc.getUpdatedCatalog().subscribe(latest => {
@@ -47,7 +46,64 @@ export class DashboardComponent implements OnInit {
   }
 
   newBill() {
-    this.fbSvc.createBill(this.bill_name, this.bill_amount, this.bill_dueDate);
+    this.fbSvc
+      .createOrUpdateBill(
+        this.bill_id,
+        this.bill_name,
+        this.bill_amount,
+        this.bill_dueDate
+      )
+      .subscribe(result => {
+        if (result === false) {
+          alert('Ocurrió un error intentando guardar.');
+        } else {
+          this.resetForm();
+        }
+      });
+  }
+
+  openBillInModal(id) {
+    if (id) {
+      this.bill_id = id;
+      this.bill_name = this.bills[id].name;
+      this.bill_amount = this.bills[id].amount;
+      // this.bill_dueDate = this.bills[id].amount;
+    } else {
+      this.resetForm();
+    }
+  }
+
+  deleteBill() {
+    if (confirm('Está seguro?')) {
+      this.fbSvc.deleteBill(this.bill_id).subscribe(result => {
+        if (result === false) {
+          alert('Ocurrió un error intentando guardar.');
+        } else {
+          this.resetForm();
+        }
+      });
+    }
+  }
+
+  saveBill() {
+    this.fbSvc
+      .createOrUpdateBill(
+        this.bill_id,
+        this.bill_name,
+        this.bill_amount,
+        this.bill_dueDate
+      )
+      .subscribe(result => {
+        if (result === false) {
+          alert('Ocurrió un error intentando guardar.');
+        } else {
+          this.resetForm();
+        }
+      });
+  }
+
+  resetForm() {
+    this.bill_id = 0;
     this.bill_name = '';
     this.bill_amount = 0;
     this.bill_dueDate = null;

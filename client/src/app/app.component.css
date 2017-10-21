@@ -449,17 +449,12 @@ body {
   margin: 0 !important;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Helvetica Neue, Arial, sans-serif;
+  background-color: rgb(0, 121, 191);
 }
 
-.navbar-default {
-  background: #337ab7;
-}
 
 .nav > li > a {
   color: white;
-}
-.navbar-default .navbar-brand {
-  color: #fff;
 }
 
 .navbar-top-links .dropdown-tasks {
@@ -476,4 +471,27 @@ body {
     right: 0;
     left: auto;
   }
+}
+
+
+
+.navbar-default {
+  background: #026AA7;
+    box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        border: 0;
+}
+.navbar-header {
+    left: 50%;
+    display: block;
+    margin-left: -81px;
+    position: absolute;
+    font-weight: bold;
+}
+
+.navbar-default .navbar-brand {
+    color: rgba(226, 230, 241, 0.97);
+}
+
+a.navbar-brand:hover {
+    color: white!important;
 }

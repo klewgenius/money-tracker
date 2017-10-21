@@ -12,9 +12,6 @@
 
 }
 
-.card-block {
-    padding: .75rem 1rem;
-}
 .card {
     margin-bottom: 1.5rem;
     border: 0;
@@ -33,12 +30,6 @@
     border: 1px solid rgba(0,0,0,.125);
 }
 
-.card .card-block > .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
-    font-weight: 400;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
 
 .text-overflow {
     text-overflow: ellipsis;
@@ -83,10 +74,8 @@ element.style {
   color: red;
 }
 
-
-.page-title-div {
-    background-color: #b7b7b7;
-    color: white;
+.cards-container{
+  padding: 30px;
 }
 
 .cards-container .list-group{
@@ -96,9 +85,6 @@ element.style {
 
 }
 
-.separator{
-  top:5px;
-}
 
 .card{
   border:0;
@@ -106,33 +92,65 @@ element.style {
 
 
 .btn-round{
-    border-radius: 20px;
     border: 1px solid;
-    position: absolute;
-    right: 15px;
 }
 
 .btn-pay{
-    top: 12px;
     color: #60a762;
     background-color: #fff;
 }
 
 .btn-edit{
-  top: 49px;
   color: #a2a2a2;
   background-color: #fff;
 }
 
 .not-payed{
-    top: 12px;
     color: #d27777;
     border: 1px solid;
 }
 
 .btn-new{
-    border-radius:5px;
-    top: 6px;
-    color: #5c6ab1;
-    border: 1px solid;
+    cursor: pointer;
+}
+.btn-new:hover{
+    color: grey;
+}
+
+@media (max-width: @screen-md-min) {
+  .h3{
+    padding: 10px;
+  }
+}
+
+.cards-column{
+  background-color: #E2E4E6;
+  border-radius: 3px;
+  padding-right: 5px;
+  padding-left: 5px;
+  padding-bottom: 15px;
+  display: grid;
+margin-bottom: 5px;
+}
+.page-title-div h5{
+  font-weight: bold;
+}
+
+.card-padding{
+  padding: 0px 5px 0px 0px;
+}
+
+.card.card-block h2 {
+    height: 32px;
+    margin: 5px 0px 7px 0px;
+}
+
+.card.card-block div {
+    margin: 0px 0 5px 0px;
+}
+
+.sub-header.col-sm-12.page-title-div {
+    color: white;
+    /* background-color: rebeccapurple; */
+    margin: -6px 0px 8px 15px;
 }

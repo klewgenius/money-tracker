@@ -4,54 +4,54 @@
   </div>
 </div>
 <div class="col-sm-12 main-info-container">
-  <ul class="list-group list-group-flush">
+  <ul class="list-group list-group-flush" *ngIf="false">
     <li class="list-group-item">
-      <div class="row">
-        <div class="col-md-4">
 
-          <div class="card card-block">
-            <h2 class="m-b-0 v-align-middle text-overflow green-number">
-              <span>{{ salary }}</span>
-            </h2>
-            <div class="small text-overflow text-muted">
-              Ingresos
-            </div>
-            <div class="small text-overflow">
-              Updated:&nbsp;
-              <span>05:35 AM</span>
-            </div>
+      <div class="col-md-4">
+
+        <div class="card card-block">
+          <h2 class="m-b-0 v-align-middle text-overflow green-number">
+            <span>{{ salary }}</span>
+          </h2>
+          <div class="small text-overflow text-muted">
+            Ingresos
           </div>
-
-        </div>
-        <div class="col-md-4">
-          <div class="card card-block">
-            <h2 class="m-b-0 v-align-middle text-overflow green-number">
-              <span>{{ salary - amount }}</span>
-            </h2>
-            <div class="small text-overflow text-muted">
-              Estado Actual
-            </div>
-            <div class="small text-overflow">
-              Updated:&nbsp;
-              <span>05:35 AM</span>
-            </div>
+          <div class="small text-overflow">
+            Updated:&nbsp;
+            <span>05:35 AM</span>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card card-block">
-            <h2 class="m-b-0 v-align-middle text-overflow green-number">
-              <span>{{ salary - estimation }}</span>
-            </h2>
-            <div class="small text-overflow text-muted">
-              Estado Estimado
-            </div>
-            <div class="small text-overflow">
-              Updated:&nbsp;
-              <span>05:35 AM</span>
-            </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="card card-block">
+          <h2 class="m-b-0 v-align-middle text-overflow green-number">
+            <span>{{ salary - amount }}</span>
+          </h2>
+          <div class="small text-overflow text-muted">
+            Estado Actual
+          </div>
+          <div class="small text-overflow">
+            Updated:&nbsp;
+            <span>05:35 AM</span>
           </div>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="card card-block">
+          <h2 class="m-b-0 v-align-middle text-overflow green-number">
+            <span>{{ salary - estimation }}</span>
+          </h2>
+          <div class="small text-overflow text-muted">
+            Estado Estimado
+          </div>
+          <div class="small text-overflow">
+            Updated:&nbsp;
+            <span>05:35 AM</span>
+          </div>
+        </div>
+      </div>
+
     </li>
     <li class="list-group-item">
       <div class="row">
@@ -103,87 +103,100 @@
 </div>
 <div class="cards-container">
 
-  <div class="col-md-6 col-sm-12">
-    <div class="col-sm-12 page-title-div">
-      <h3>PENDIENTES</h3>
-      <button type="button"
-        data-target="#newCard"
-        data-toggle="modal"
-        (click)="openBillInModal()"
-        class="btn btn-default btn-round btn-new">+ NUEVO</button>
-    </div>
-    <div class="col-sm-12 separator">
-      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | notPayed)">
-        <h2 class="m-b-0 v-align-middle text-overflow">
-          <span>{{ item.amount }}</span>
-        </h2>
-        <div class="small text-overflow text-muted">
-          {{ item.name }}
+  <div class="col-lg-6 col-md-12 col-sm-12">
+    <div class="cards-column">
+      <div class="col-sm-12 page-title-div">
+        <div class="row">
+          <h5 class="col-sm-10">Pendientes</h5>
+          <h5 class="col-sm-2 btn-new" data-target="#newCard" data-toggle="modal" (click)="openBillInModal('')">+ NUEVO</h5>
         </div>
-        <button type="button" (click)="pay(item.index)" class="btn btn-default btn-round btn-pay">PAGAR</button>
-        <button type="button"
-        data-target="#newCard"
-        data-toggle="modal"
-        (click)="openBillInModal(item.index)"
-        class="btn btn-default btn-round btn-edit">Editar</button>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 card-padding" 
+        *ngFor="let item of (bills | notPayed)">
+
+          <div class="card card-block">
+            <div class="row">
+              <h2 class="m-b-0 v-align-middle text-overflow">
+                <span>{{ item.amount }}</span>
+              </h2>
+              <div class="small text-overflow text-muted">
+                {{ item.name }}
+              </div>
+            </div>
+            <div class="row">
+              <button type="button" (click)="pay(item.index)" 
+              class="btn btn-default btn-round btn-pay">PAGAR</button>
+
+              <button type="button" data-target="#newCard" 
+              data-toggle="modal" (click)="openBillInModal(item.index)" 
+              class="btn btn-default btn-round btn-edit">Editar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <div class="col-md-6 col-sm-12">
-    <div class="col-sm-12 page-title-div">
-      <h3>REALIZADOS</h3>
-    </div>
-    <div class="col-sm-12 separator">
-      <div class="col-md-6 col-lg-4 card card-block" *ngFor="let item of (bills | payed)">
-          <h2 class="m-b-0 v-align-middle text-overflow">
-            <span>{{ item.amount }}</span>
-          </h2>
-          <div class="small text-overflow text-muted">
-            {{ item.name }}
-          </div>
-          <button type="button" (click)="unPayed(item.index)"
-          class="btn btn-default btn-round not-payed">NO PAGO</button>
+    <div class="cards-column">
+      <div class="col-sm-12 page-title-div">
+        <div class="row">
+          <h5 class="col-sm-10">Realizados</h5>
+        </div>
+      </div>
+      <div class="col-sm-12">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 card-padding" 
+        *ngFor="let item of (bills | payed)">
 
-          <button type="button"
-          data-target="#newCard"
-          data-toggle="modal"
-          (click)="openBillInModal(item.index)"
-          class="btn btn-default btn-round btn-edit">Editar</button>
+          <div class="card card-block">
+            <div class="row">
+              <h2 class="m-b-0 v-align-middle text-overflow">
+                <span>{{ item.amount }}</span>
+              </h2>
+              <div class="small text-overflow text-muted">
+                {{ item.name }}
+              </div>
+            </div>
+            <div class="row">
+              <button type="button" (click)="unPayed(item.index)" class="btn btn-default btn-round not-payed">NO PAGO</button>
+              <button type="button" data-target="#newCard" data-toggle="modal" (click)="openBillInModal(item.index)" class="btn btn-default btn-round btn-edit">Editar</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="modal fade" id="newCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">Nuevo gasto</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="name" class="form-control-label">Nombre:</label>
-            <input type="text" class="form-control" id="name" [(ngModel)]="bill_name" name="name">
-          </div>
-          <div class="form-group">
-            <label for="amount" class="form-control-label">Monto:</label>
-            <input type="number" class="form-control" id="amount" [(ngModel)]="bill_amount" name="amount">
-          </div>
-          <div class="form-group">
-            <label for="date" class="form-control-label" >Vencimiento:</label>
-            <input type="date" class="form-control" id="date" [(ngModel)]="bill_dueDate" name="duedate">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" *ngIf="bill_id > 0" (click)="deleteBill()">Eliminar</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" (click)="saveBill()">Guardar</button>
+  <div class="modal fade" id="newCard" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Nuevo gasto</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="name" class="form-control-label">Nombre:</label>
+              <input type="text" class="form-control" id="name" [(ngModel)]="bill_name" name="name">
+            </div>
+            <div class="form-group">
+              <label for="amount" class="form-control-label">Monto:</label>
+              <input type="number" class="form-control" id="amount" [(ngModel)]="bill_amount" name="amount">
+            </div>
+            <div class="form-group">
+              <label for="date" class="form-control-label">Vencimiento:</label>
+              <input type="date" class="form-control" id="date" [(ngModel)]="bill_dueDate" name="duedate">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" *ngIf="bill_id > 0" (click)="deleteBill()">Eliminar</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="saveBill()">Guardar</button>
+        </div>
       </div>
     </div>
   </div>
-</div>

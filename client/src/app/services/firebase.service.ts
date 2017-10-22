@@ -109,8 +109,11 @@ export class FirebaseService implements OnDestroy {
         .remove()
         .then(
           () => observer.next(true),
-          err => { observer.next(false); console.log(err); }
-      );
+          err => {
+            observer.next(false);
+            console.log(err);
+          }
+        );
     }
     return observer;
   }
@@ -163,6 +166,18 @@ export class FirebaseService implements OnDestroy {
       .object(userId + '/catalogs')
       .valueChanges()
       .takeUntil(this.unsubscribeEvent)
-      .subscribe(catalogs => this.catalogs.next(catalogs));
+      .map(c => {
+        const arr = Object.values(c);
+        arr.forEach(e => {
+          const total = e['gastos'].length;
+          const payed = e['gastos'].filter(g => g.payed).length;
+          e['completed'] = (payed * 100 / total).toFixed(0);
+        });
+        console.log(arr);
+        return arr;
+      })
+      .subscribe(catalogs => {
+        this.catalogs.next(catalogs);
+      });
   }
 }

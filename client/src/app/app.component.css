@@ -54,8 +54,9 @@ body {
 .navbar-top-links .dropdown-alerts,
 .navbar-top-links .dropdown-messages,
 .navbar-top-links .dropdown-tasks {
-  width: 310px;
-  min-width: 0;
+  margin-left: 0;
+  width: max-content;
+  cursor: pointer;
 }
 .navbar-top-links .dropdown-messages {
   margin-left: 5px;
@@ -494,4 +495,18 @@ body {
 
 a.navbar-brand:hover {
     color: white!important;
+}
+
+
+.sub-header .statistics {
+    margin-top: 15px;
+    background: rgba(236, 234, 234, 0.98);
+    border-radius: 3px;
+    color: #4e4e4e;
+    margin-right: 30px;
+        margin-left: 0px;
+}
+
+.row.statistics h4 {
+    font-size: small;
 }

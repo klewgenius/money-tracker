@@ -21,7 +21,8 @@ export class AppComponent implements AfterViewInit {
     private router: Router
   ) {
 
-    this.db.catalogs.subscribe(cat => this.catalogs = cat);
+    this.db.catalogs
+    .subscribe(cat => this.catalogs = cat);
 
     this.authService.af.auth.onAuthStateChanged(user => {
       if (user == null) {

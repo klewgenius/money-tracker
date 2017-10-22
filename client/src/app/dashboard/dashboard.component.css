@@ -68,10 +68,10 @@ element.style {
     float: right!important;
 }
 .green-number{
-  color: green;
+    color: #18a018;
 }
 .red-number{
-  color: red;
+    color: #e62222;
 }
 
 .cards-container{
@@ -112,10 +112,12 @@ element.style {
 
 .btn-new{
     cursor: pointer;
+    margin: 5px 0px 0px 0px;
 }
 .btn-new:hover{
     color: grey;
 }
+
 
 @media (max-width: @screen-md-min) {
   .h3{
@@ -126,8 +128,6 @@ element.style {
 .cards-column{
   background-color: #E2E4E6;
   border-radius: 3px;
-  padding-right: 5px;
-  padding-left: 5px;
   padding-bottom: 15px;
   display: grid;
 margin-bottom: 5px;
@@ -150,7 +150,23 @@ margin-bottom: 5px;
 }
 
 .sub-header.col-sm-12.page-title-div {
-    color: white;
-    /* background-color: rebeccapurple; */
-    margin: -6px 0px 8px 15px;
+       color: white;
+    left: 15px;
+    margin-bottom: 15px;
+}
+
+.sub-header .statistics {
+    margin-top: 15px;
+}
+
+.statistics h4 {
+    font-size: 20px;
+}
+.statistics .card-block {
+   padding: 0;
+           margin: 0px -10px 15px -15px;
+}
+
+.statistics .small.text-overflow.text-muted {
+    padding: 13px 0px 0px 0px;
 }

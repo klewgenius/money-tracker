@@ -16,7 +16,7 @@
         </a>
         <ul class="dropdown-menu dropdown-tasks">
           <li *ngFor="let item of catalogs; let i = index" (click)="setTarget(i)">
-            <a>
+            <a *ngIf="item.active">
               <div >
                 <p>
                   <strong>{{ item.title }}</strong>
@@ -26,7 +26,7 @@
                   <div class="progress-bar progress-bar-success"
                   role="progressbar"
                   aria-valuenow="item.completed"
-                  aria-valuemin="0" aria-valuemax="100" 
+                  aria-valuemin="0" aria-valuemax="100"
                   [style.width.%]="item.completed">
                     <span class="sr-only">{{item.completed}}% Complete (success)</span>
                   </div>

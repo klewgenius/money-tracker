@@ -86,16 +86,16 @@ export class FirebaseService implements OnDestroy {
   }
 
   // todo: return promise with true/false
-  createOrUpdateBill(id, name, amount, dueDate): Subject<boolean> {
+  createOrUpdateBill(id, name, amount, dueDate, payed): Subject<boolean> {
     if (id > 0) {
       this.bills[id].name = name;
       this.bills[id].amount = amount;
-      // this.bills[id].payed = name;
+      this.bills[id].payed = payed;
     } else {
       this.bills.push({
         name: name,
         amount: amount,
-        payed: false
+        payed: payed
       });
     }
     return this.updateBills();
@@ -161,9 +161,8 @@ export class FirebaseService implements OnDestroy {
 
   private init(userId) {
     this.userId = userId;
-    this.attachToChanges(0);
     this.db
-      .object(userId + '/catalogs')
+      .list(userId + '/catalogs')
       .valueChanges()
       .takeUntil(this.unsubscribeEvent)
       .map(c => {
@@ -178,6 +177,9 @@ export class FirebaseService implements OnDestroy {
       })
       .subscribe(catalogs => {
         this.catalogs.next(catalogs);
+        const firstActive = catalogs.findIndex(c => c.active === true);
+        this.attachToChanges(firstActive);
+
       });
   }
 }

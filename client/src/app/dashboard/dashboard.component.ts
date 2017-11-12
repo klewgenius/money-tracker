@@ -20,6 +20,7 @@ export class DashboardComponent implements OnInit {
   bill_amount: number;
   bill_dueDate: Date;
   bill_id: number;
+  bill_payed: boolean;
 
   constructor(public fbSvc: FirebaseService) {
     this.fbSvc.getUpdatedCatalog().subscribe(latest => {
@@ -51,7 +52,8 @@ export class DashboardComponent implements OnInit {
         this.bill_id,
         this.bill_name,
         this.bill_amount,
-        this.bill_dueDate
+        this.bill_dueDate,
+        this.bill_payed
       )
       .subscribe(result => {
         if (result === false) {
@@ -67,7 +69,7 @@ export class DashboardComponent implements OnInit {
       this.bill_id = id;
       this.bill_name = this.bills[id].name;
       this.bill_amount = this.bills[id].amount;
-      // this.bill_dueDate = this.bills[id].amount;
+      this.bill_payed = this.bills[id].payed;
     } else {
       this.resetForm();
     }
@@ -91,7 +93,8 @@ export class DashboardComponent implements OnInit {
         this.bill_id,
         this.bill_name,
         this.bill_amount,
-        this.bill_dueDate
+        this.bill_dueDate,
+        this.bill_payed
       )
       .subscribe(result => {
         if (result === false) {
@@ -102,10 +105,18 @@ export class DashboardComponent implements OnInit {
       });
   }
 
+  saveAndPay() {
+
+    this.bill_payed = true;
+    this.saveBill();
+
+  }
+
   resetForm() {
     this.bill_id = 0;
     this.bill_name = '';
     this.bill_amount = 0;
     this.bill_dueDate = null;
+    this.bill_payed = false;
   }
 }
